@@ -92,3 +92,13 @@
     color: var(--text-color);
     border-radius: 10px!important;
   }
+
+  
+  .modal-content{
+    background-color: var(--background-color)!important;
+    color: var(--text-color)!important;
+  }
+  
+  .modal-footer .button{
+      color: var(--text-color)!important;
+  }

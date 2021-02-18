@@ -3,6 +3,8 @@ $(document).ready(function () {
     textareaRefresh($('textarea'));
 
     $('#note').focusout(insertNote);
+	
+	$('body').on('click', '#delete', deleteNote);
 
 });
 
@@ -47,4 +49,20 @@ function insertNote(){
             this.style.height = '40px';
             this.style.color = '';
         });
+}
+
+function deleteNote() {
+    card_body = $(this).parent();
+    card = $(this).parent().parent();
+    $('#exampleModalCenter').modal('show');
+}
+
+function deleteDialog () {
+    id_delete = card_body.find($('textarea')).attr("id");
+    var count = localStorage.getItem("count");
+    localStorage.removeItem(id_delete);
+    localStorage.setItem("count", parseInt(count) - 1);
+    card.remove();
+    $('#exampleModalCenter').modal('hide');
+    $('.toast').toast("show");
 }
