@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Keep Note!!</title>
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="mystyle.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+<script src="script.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  
+</head>
+
+<body>
+
+<div class="header">
+  <h1 class="header__heading">Note</h1>
+  <hr>
+</div>
+
+<div class="container">
+        <textarea id="note" class="form-control col-xs-12 col-sm-12 col-lg-12 " placeholder="Take a note..."></textarea>
+</div>
+
+
+<div class="container cards">
+  <div class="card-columns">
+    <script id="template-addNote" type="text/x-handlebars-template">
+      <div class="card" id="card">
+        <div class="card-body text-center" id="card-body">
+            <textarea class="card-body__textarea form-control card-text" id={{note_key}}>{{note_value}}</textarea>
+            <button  id="delete" class="btn btn-dark">Delete</button>
+        </div>
+      </div>
+    </script>
+  </div>
+</div>
+
+</body>
+
+</html>

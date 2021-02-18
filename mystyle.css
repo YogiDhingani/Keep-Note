@@ -1,0 +1,94 @@
+  :root{
+    /* --backgroung-color: #202124; */
+    --background-color:  rgb(32, 33, 36);
+    --text-color: rgb(232, 234, 237);
+  }
+
+  .header {
+    padding: 10px; 
+    padding-left: 10px;
+    text-align: left; 
+    background: var(--background-color);
+    color: var(--text-color); 
+  }
+  
+  .header__heading{
+    font-family: Roboto, arial, sans-serif;
+  }
+
+  *{
+    box-sizing: border-box;
+    font-family: Roboto, arial, sans-serif;
+  }
+
+  .form-control:focus{
+    box-shadow: none !important;
+  }
+
+  body{
+    background-color: var(--background-color)!important;
+  }
+
+  hr{
+    background-color: var(--text-color);
+  }
+
+  #note{
+    margin-top: 20px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    outline: none;
+    resize: none;
+    height: 40px;
+  }
+
+  #note::placeholder{
+    color: var(--text-color);
+    opacity: 1;
+  }
+
+  #note:focus{
+    background-color: var(--background-color);
+    color: var(--text-color);
+    outline-color: transparent !important;
+    outline: none!important;
+    height: 40px;
+  }
+
+  .btn-dark{
+    background-color: var(--background-color)!important;
+    border: none!important;
+    color: #FB8122!important;
+  }
+
+  .btn-dark:hover{
+    color: var(--text-color)!important;
+  }
+
+  .cards{
+    margin-top: 20px;
+  }
+
+  .cards .card-body__textarea{
+    background-color: var(--background-color) !important;
+    color: var(--text-color);
+    border: none;
+    resize: none;
+  }
+
+  .cards .card-body__textarea:focus{
+    background-color: var(--background-color) !important;
+    color: var(--text-color);
+    border: none;
+    resize: none;
+  }
+
+  .card{
+    border-radius: 10px!important;
+  }
+
+  .card-body{
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-radius: 10px!important;
+  }
