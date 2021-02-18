@@ -59,6 +59,11 @@
     background-color: var(--background-color)!important;
     border: none!important;
     color: #FB8122!important;
+    opacity: 0;
+  }
+
+  .btn-dark:disabled{
+    opacity: 0!important;
   }
 
   .btn-dark:hover{
@@ -93,7 +98,6 @@
     border-radius: 10px!important;
   }
 
-  
   .modal-content{
     background-color: var(--background-color)!important;
     color: var(--text-color)!important;
@@ -102,7 +106,7 @@
   .modal-footer .button{
       color: var(--text-color)!important;
   }
-  
+
   .toast{
     position: fixed!important;
     left: 10px!important;

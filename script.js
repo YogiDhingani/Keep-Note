@@ -4,6 +4,14 @@ $(document).ready(function () {
 
     $('#note').focusout(insertNote);
 	
+	$('body').on('focus', '.card-body', mouseover_card);
+
+    $('body').on('focusout', '.card-body', mouseout_card);
+
+    $('body').on('mouseover', '.card-body', mouseover_card);
+
+    $('body').on('mouseout', '.card-body', mouseout_card);
+	
 	$('body').on('click', '#delete', deleteNote);
 
 });
@@ -65,4 +73,15 @@ function deleteDialog () {
     card.remove();
     $('#exampleModalCenter').modal('hide');
     $('.toast').toast("show");
+}
+
+function mouseover_card(){
+        var delete_button = this.querySelector('button');
+        transition(delete_button);
+        delete_button.style.opacity = 1;
+}
+
+function mouseout_card(){
+        var delete_button = this.querySelector('button');
+        delete_button.style.opacity = 0;
 }
