@@ -1,7 +1,10 @@
-/**Global variables */
+/**
+ * Global variables
+ */
 var template;
 var compiled_template;
 var text_delete_title;
+var text_restore_title;
 var card_body;
 var card;
 
@@ -10,11 +13,6 @@ var card;
  */
 var notes = new Array();
 
-/**
- * Global variable which contains old title value.
- */
-var old_title_val;
-
 /**Whatever code you write inside this method will run once the page DOM is ready to execute JavaScript code.*/
 $(document).ready(function () {
 
@@ -22,6 +20,7 @@ $(document).ready(function () {
     compiled_template = Handlebars.compile(template);
 
     textareaRefresh($('textarea'));
+
     var mode = localStorage.getItem("Mode");
 
     if(mode == "Dark"){
@@ -31,11 +30,7 @@ $(document).ready(function () {
         lightMode();
     }
 
-
     onRefresh();
-
-    /** insert note after user enter note and user click on outside of it (loses focus from it).*/
-    $('#note').focusout(insertNote);
 
     /**Displays button when user give focus to note. */
     $('body').on('focus', '.card-body', mouseOverCard);
@@ -56,18 +51,10 @@ $(document).ready(function () {
 
     $('body').on('click', '#btn-dark', darkMode);
 
+    $('.card-columns').on('click', '#restore', restoreNote);
+
     /**Deletes button when user clicks on yes in dialog box. */
-    // $('#exampleModalCenter').on('click', '#confirm_delete', deleteDialog);
-
-    /**Stores old title value to OldTitleVal global variable.*/
-    $('.card-columns').on('focusin','.card-body__textarea',(event) => {old_title_val = $(event.target).val();});
-
-    /**Update note to lates value entered by user. */
-    $('.card-columns').on('focusout', '.card-body__textarea', updateNote);
-
-    /**Undo deleted note. */
-    $('.toast').on('click', '#btn-undo', undoNote);
-
+    $('#exampleModalCenter').on('click', '#confirm_delete', deleteDialog);
 });
 
 /**Give transition to element passed as argument.
@@ -107,80 +94,72 @@ function onRefresh(){
     card_columns.empty();
 
     for (var i = 0; i < notes.length; i++) {
-        if(notes[i].status == "active")
+        if(notes[i].status == "binned")
         {
             var rendered = compiled_template({ note_value: notes[i].title , note_key: i });
             card_columns.prepend(rendered);
         }
     }
+    console.log(11);
 
     textareaRefresh($('textarea'));
-}
-
-/**
- * Insert note to  page.
- */
-function insertNote(){
-    var card_columns = $('.card-columns');
-
-        if ($('#note').val().trim() != null && $('#note').val().trim() != "") 
-        {
-            var rendered = compiled_template({ note_value: $('#note').val().trim()});
-
-            card_columns.prepend(rendered);
-            notes.push({title: $('#note').val(), status:"active"});
-            localStorage.setItem("Notes",JSON.stringify(notes));
-
-            $('#note').val("");
-
-            textareaRefresh($('textarea'));
-        }
-        else {
-            $('#note').val("");
-        }
-        $('#note').each(function () {
-            this.style.height = '40px';
-            this.style.color = '';
-        });
 }
 
 /**     Displays button to user (Changes button opacity to 1)*/
 function mouseOverCard(){
         var delete_button = this.querySelector('button');
+        var restore_button = this.querySelector('#restore')
         transition(delete_button);
+        transition(restore_button);
         delete_button.style.opacity = 1;
+        restore_button.style.opacity = 1;
 }
 
 /**     Hides button from user (Changes button opacity to 0)*/
 function mouseOutCard(){
         var delete_button = this.querySelector('button');
         delete_button.style.opacity = 0;
+        var restore_button = this.querySelector('#restore');
+        restore_button.style.opacity = 0;
 }
-
 
 /**     Show dialog box of confirm delete note. */
 function deleteNote() {
     card_body = $(this).parent();
     card = $(this).parent().parent();
+    $('#exampleModalCenter').modal('show');
+}
+
+/** Delete particular note on which it is called.*/
+function deleteDialog () {
 
     text_delete_title = card_body.find($('textarea')).val();
-    changeStatus(text_delete_title, "binned");
+
+    for(var i=0; i<notes.length ; i++)
+    {
+        if(notes[i].title == text_delete_title){
+            notes = notes.filter(item => { return item != notes[i];})
+        }
+    }
 
     localStorage.setItem("Notes",JSON.stringify(notes));
     card.remove();
-    
+    $('#exampleModalCenter').modal('hide');
     $('.toast').toast("show");
 }
 
-/**     Undo deleted note */
-function undoNote(){
-    $('.toast').toast("hide");
-    changeStatus(text_delete_title,'active');
+/**Restore note from binned section to notes section. */
+function restoreNote(){
+    card_body = $(this).parent();
+    card = $(this).parent().parent();
+    text_restore_title = card_body.find($('textarea')).val();
+    console.log(text_restore_title);
+    changeStatus(text_restore_title, "active");
     localStorage.setItem("Notes",JSON.stringify(notes));
     location.reload();
 }
 
-/** changes particular task status.
+/**Changes task status to new status. 
  * @param {string} title - title of task
  * @param {string} status - status of task
 */
@@ -192,24 +171,10 @@ function changeStatus(title, status){
     }
 }
 
-/** Update note value to the value enter by user.*/
-function updateNote() {
-
-    var new_title_val = $(this).val().trim();
-    
-        for(var i=0; i<notes.length; i++){
-            if(notes[i].title == old_title_val){
-                notes[i].title = new_title_val;
-            }
-        }
-    localStorage.setItem("Notes",JSON.stringify(notes));
-}
-
 var button, another_button;
 
 /**Activate light mode */
-function lightMode()
-{
+function lightMode(){
 
     var mode = localStorage.getItem("Mode");
     another_button = $(this).parent().find($('#btn-dark'));
@@ -226,8 +191,8 @@ function lightMode()
 }
 
 /**Changes background color of button */
-function changeBackgound(button, another_button)
-{    
+function changeBackgound(button, another_button){
+    
     button.css("background-color","rgb(232, 234, 237)");
     button.css("color","rgb(32, 33, 36)");
     
@@ -236,9 +201,7 @@ function changeBackgound(button, another_button)
 }
 
 /**Avtivate dark mode */
-function darkMode()
-{
-
+function darkMode(){
     var mode = localStorage.getItem("Mode");
     another_button = $(this).parent().find($('#btn-light'));
     button = $(this);
@@ -249,6 +212,6 @@ function darkMode()
 
     if(mode != "Dark")
     {
-        changeBackgound(button,another_button); 
+        changeBackgound(button,another_button);  
     }
 }

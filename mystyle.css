@@ -4,6 +4,11 @@
     --text-color: rgb(232, 234, 237);
   }
 
+  *{
+    box-sizing: border-box;
+    font-family: Roboto, arial, sans-serif;
+  }
+
   .header {
     padding: 10px; 
     padding-left: 10px;
@@ -16,9 +21,13 @@
     font-family: Roboto, arial, sans-serif;
   }
 
-  *{
-    box-sizing: border-box;
-    font-family: Roboto, arial, sans-serif;
+  .navbar .navbar-nav .nav-item{
+   font-size: 20px;
+   text-align: center;
+  }
+
+  .navbar .navbar-nav .nav-item.active{
+    font-weight: bold;
   }
 
   .form-control:focus{
@@ -122,4 +131,36 @@
 
   i{
       color: var(--text-color);
+  }
+
+  #btn-undo{
+    margin-left: 20px;
+    background-color:  #16504b!important;
+    border: none!important;
+    color: #FB8122!important;
+  }
+
+  .btn-group{
+    position: absolute!important;
+    right:15px!important;
+    top: 15px!important;
+  }
+
+  #btn-light{
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+
+  #btn-dark{
+    background-color: var(--text-color);
+    color: var(--background-color);
+  }
+
+  /* #btn-dark{
+    background-color: var(--text-color);
+    color: var(--background-color);
+  } */
+
+  .bg-dark{
+    background-color: var(--background-color)!important;
   }

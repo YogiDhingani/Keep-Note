@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="mystyle.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 <script src="script.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -20,51 +22,67 @@
 
 <body>
 
-<div class="header">
-  <h1 class="header__heading">Note</h1>
-  <hr>
-</div>
-
-<div class="container">
-        <textarea id="note" class="form-control col-xs-12 col-sm-12 col-lg-12 " placeholder="Take a note..."></textarea>
-</div>
-
-
-<div class="container cards">
-  <div class="card-columns">
-    <script id="template-addNote" type="text/x-handlebars-template">
-      <div class="card" id="card">
-        <div class="card-body text-center" id="card-body">
-            <textarea class="card-body__textarea form-control card-text" id={{note_key}}>{{note_value}}</textarea>
-            <button  id="delete" class="btn btn-dark">Delete</button>
-        </div>
-      </div>
-    </script>
+  <div class="header">
+    <h1 class="header__heading">Note</h1>
+    <!-- <input class="float-right" type="checkbox" data-toggle="toggle" data-on="Dark" data-off="Light"> -->
+    <div class="btn-group btn-group-md float-right">
+      <button id="btn-dark" type="button" class="btn btn-primary">Dark</button>
+      <button id="btn-light" type="button" class="btn btn-primary">Light</button>
+    </div>
+    <hr>
   </div>
-</div>
 
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-body">
-            Are you sure you want to delete?
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Note</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Bin.html">Bin</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container">
+        <textarea id="note" class="form-control col-xs-12 col-sm-12 col-lg-12 " placeholder="Take a note..."></textarea>
+  </div>
+
+  <div class="container cards">
+    <div class="card-columns">
+      <script id="template-addNote" type="text/x-handlebars-template">
+        <div class="card" id="card">
+          <div class="card-body text-center" id="card-body">
+              <textarea class="card-body__textarea form-control card-text">{{note_value}}</textarea>
+              <button  id="delete" class="btn btn-dark">Delete</button>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-            <button type="button" class="btn btn-primary" id="confirm_delete">Yes</button>
-          </div>
+        </div>
+      </script>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          Are you sure you want to delete?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <button type="button" class="btn btn-primary" id="confirm_delete">Yes</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="toast" data-delay="3000">
-      <div class="toast-body">
-        Task is deleted!!      
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-          <i class="fa fa-times-circle"></i>
-        </button>
-      </div>
+  <div class="toast" data-delay="3000">
+    <div class="toast-body">
+      Task is deleted!!      
+      <button type="button" id="btn-undo">Undo</button>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <i class="fa fa-times-circle"></i>
+      </button>
     </div>
+  </div>
 
 </body>
 
