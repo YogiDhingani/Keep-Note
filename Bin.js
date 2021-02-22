@@ -55,6 +55,7 @@ $(document).ready(function () {
 
     /**Deletes button when user clicks on yes in dialog box. */
     $('#exampleModalCenter').on('click', '#confirm_delete', deleteDialog);
+
 });
 
 /**Give transition to element passed as argument.
@@ -100,7 +101,6 @@ function onRefresh(){
             card_columns.prepend(rendered);
         }
     }
-    console.log(11);
 
     textareaRefresh($('textarea'));
 }
@@ -157,6 +157,7 @@ function restoreNote(){
     changeStatus(text_restore_title, "active");
     localStorage.setItem("Notes",JSON.stringify(notes));
     location.reload();
+    $('.toast-restored').toast("show");
 }
 
 /**Changes task status to new status. 
@@ -214,4 +215,11 @@ function darkMode(){
     {
         changeBackgound(button,another_button);  
     }
+}
+
+/**delete all notes in bin section */
+function emptyBin(){
+    notes = notes.filter(items => { return items.status !== "binned"});
+    localStorage.setItem("Notes",JSON.stringify(notes));
+    location.reload();
 }

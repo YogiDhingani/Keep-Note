@@ -37,8 +37,16 @@
       <li class="nav-item active">
         <a class="nav-link" href="">Bin</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" onClick="emptyBin()" id="btn-emptybin">Empty Bin</a>
+      </li>
     </ul>
   </nav>
+
+<!-- 
+  <div class="row">
+  <button class="btn" id="btn-emptybin">Empty Bin</button>
+  </div> -->
 
 <div class="container cards">
   <div class="card-columns">
@@ -68,9 +76,19 @@
       </div>
     </div>
 
-    <div class="toast" data-delay="3000">
+    <div class="toast" data-delay="1000">
       <div class="toast-body">
         Task is deleted!!      
+        <!-- <button type="button" id="btn-undo">Undo</button> -->
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <i class="fa fa-times-circle"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="toast-restored toast" data-delay="1000">
+      <div class="toast-body">
+        Task restored successfully!!      
         <!-- <button type="button" id="btn-undo">Undo</button> -->
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
           <i class="fa fa-times-circle"></i>
