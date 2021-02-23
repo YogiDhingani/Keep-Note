@@ -1,6 +1,8 @@
 /**Global variables */
 var template;
 var compiled_template;
+var template_image;
+var compiled_template_image;
 var text_delete_title;
 var card_body;
 var card;
@@ -8,6 +10,7 @@ var card;
 /**
  * Global notes array containing all notes value.
  */
+var images = new Array();
 var notes = new Array();
 
 /**
@@ -20,7 +23,10 @@ $(document).ready(function () {
 
     template = document.getElementById('template-addNote').innerHTML;
     compiled_template = Handlebars.compile(template);
-
+	
+	template_image = document.getElementById('template-addImage').innerHTML;
+    compiled_template_image = Handlebars.compile(template_image);
+	
     textareaRefresh($('textarea'));
     var mode = localStorage.getItem("Mode");
 
@@ -30,7 +36,6 @@ $(document).ready(function () {
     if(mode == "Light"){
         lightMode();
     }
-
 
     onRefresh();
 
@@ -68,6 +73,8 @@ $(document).ready(function () {
     /**Undo deleted note. */
     $('.toast').on('click', '#btn-undo', undoNote);
 
+    $('#file-input').on('change',uploadFile);
+
 });
 
 /**Give transition to element passed as argument.
@@ -97,12 +104,18 @@ function textareaRefresh(element){
 function onRefresh(){
 
     var all_notes = JSON.parse(localStorage.getItem("Notes"));
+	var all_images  = JSON.parse(localStorage.getItem("Images"));
 
     for(var j in all_notes)
     {
         notes.push(all_notes[j]);
     }
-
+	
+	for(var j in all_images)
+    {
+        images.push(all_images[j]);
+    }
+	
     var card_columns = $('.card-columns');  
     card_columns.empty();
 
@@ -110,6 +123,13 @@ function onRefresh(){
         if(notes[i].status == "active")
         {
             var rendered = compiled_template({ note_value: notes[i].title , note_key: i });
+            card_columns.prepend(rendered);
+        }
+    }
+	for (var i = 0; i < images.length; i++) {
+        if(images[i].status == "active")
+        {
+            var rendered = compiled_template_image({ image_title: images[i].title});
             card_columns.prepend(rendered);
         }
     }
@@ -157,18 +177,23 @@ function mouseOutCard(){
         delete_button.style.opacity = 0;
 }
 
-
 /**     Show dialog box of confirm delete note. */
 function deleteNote() {
+
     card_body = $(this).parent();
     card = $(this).parent().parent();
 
     text_delete_title = card_body.find($('textarea')).val();
     changeStatus(text_delete_title, "binned");
+	
+	text_delete_title_image = card_body.find($('img')).attr('src');
+	console.log(text_delete_title_image);
+    changeStatusImage(text_delete_title_image, "binned");
+
+    localStorage.setItem("Images",JSON.stringify(images));
 
     localStorage.setItem("Notes",JSON.stringify(notes));
     card.remove();
-    
     $('.toast').toast("show");
 }
 
@@ -176,7 +201,9 @@ function deleteNote() {
 function undoNote(){
     $('.toast').toast("hide");
     changeStatus(text_delete_title,'active');
+    changeStatusImage(text_delete_title_image,'active');
     localStorage.setItem("Notes",JSON.stringify(notes));
+    localStorage.setItem("Images",JSON.stringify(images));
     location.reload();
 }
 
@@ -188,6 +215,14 @@ function changeStatus(title, status){
     for(var i=0; i<notes.length; i++){
         if(notes[i].title == title){
             notes[i].status = status;
+        }
+    }
+}
+
+function changeStatusImage(title, status){
+    for(var i=0; i<images.length; i++){
+        if(images[i].title == title){
+            images[i].status = status;
         }
     }
 }
@@ -252,3 +287,30 @@ function darkMode()
         changeBackgound(button,another_button); 
     }
 }
+
+function uploadFile(){
+    var input = document.getElementById("file-input");
+    var file = input.files[0];
+    if(file != undefined){
+      formData= new FormData();
+      if(!!file.type.match(/image.*/)){
+        formData.append("image", file);
+		images.push({ title:"/image/"+file.name, status:"active"});
+		localStorage.setItem("Images",JSON.stringify(images));
+        $.ajax({
+          url: "upload.php",
+          type: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(data){
+              location.reload();
+          }
+        });
+      }else{
+        alert('Not a valid image!');
+      }
+    }else{
+      alert('Input something!');
+    }
+  }

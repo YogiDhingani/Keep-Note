@@ -44,11 +44,20 @@
   </nav>
 
   <div class="container">
-        <textarea id="note" class="form-control col-xs-12 col-sm-12 col-lg-12 " placeholder="Take a note..."></textarea>
+    <div class="row col-sm-12">
+        <textarea id="note" class="form-control" placeholder="Take a note..."></textarea>
+        <div class="image-upload">
+          <label for="file-input">
+            <img id="logo_upload_image" src="image/upload_image.png"/>
+          </label>
+          <input id="file-input" type="file" accept="image/*"/>
+        </div>
+      </div>
   </div>
 
   <div class="container cards">
     <div class="card-columns">
+	
       <script id="template-addNote" type="text/x-handlebars-template">
         <div class="card" id="card">
           <div class="card-body text-center" id="card-body">
@@ -57,6 +66,16 @@
           </div>
         </div>
       </script>
+	  
+	  <script id="template-addImage" type="text/x-handlebars-template">
+        <div class="card" id="card">
+          <div class="card-body text-center" id="card-body">
+              <img id="display_image" src="{{image_title}}"/>
+              <button  id="delete" class="btn btn-dark">Delete</button>
+          </div>
+        </div>
+      </script>
+	  
     </div>
   </div>
 

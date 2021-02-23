@@ -50,6 +50,7 @@
 
 <div class="container cards">
   <div class="card-columns">
+
     <script id="template-addNote" type="text/x-handlebars-template">
       <div class="card" id="card">
         <div class="card-body text-center" id="card-body">
@@ -59,6 +60,17 @@
         </div>
       </div>
     </script>
+
+    <script id="template-addImage" type="text/x-handlebars-template">
+      <div class="card" id="card">
+        <div class="card-body text-center" id="card-body">
+            <img id="display_image" src="{{image_title}}"/>
+            <button  id="delete" class="btn btn-dark">Delete</button>
+            <button id="restore" class="btn btn-dark">Restore</button>
+        </div>
+      </div>
+    </script>
+
   </div>
 </div>
 

@@ -164,3 +164,24 @@
   .bg-dark{
     background-color: var(--background-color)!important;
   }
+
+  #logo_upload_image{
+    position: absolute;
+    height: 30px;
+    width: 30px;
+  }
+
+  .image-upload{
+    position: absolute;
+    margin-top: 13px;
+    right: 50px;
+  }
+
+  .image-upload>input {
+    display: none;
+  }
+
+  #display_image{
+	  width: 100%;
+	  height: auto;
+  }

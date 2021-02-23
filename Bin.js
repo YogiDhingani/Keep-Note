@@ -3,14 +3,19 @@
  */
 var template;
 var compiled_template;
+var template_image;
+var compiled_template_image;
 var text_delete_title;
 var text_restore_title;
+var text_delete_title_image;
+var text_restore_title_image;
 var card_body;
 var card;
 
 /**
  * Global notes array containing all notes value.
  */
+var images = new Array();
 var notes = new Array();
 
 /**Whatever code you write inside this method will run once the page DOM is ready to execute JavaScript code.*/
@@ -18,6 +23,9 @@ $(document).ready(function () {
 
     template = document.getElementById('template-addNote').innerHTML;
     compiled_template = Handlebars.compile(template);
+
+    template_image = document.getElementById('template-addImage').innerHTML;
+    compiled_template_image = Handlebars.compile(template_image);
 
     textareaRefresh($('textarea'));
 
@@ -85,10 +93,16 @@ function textareaRefresh(element){
 function onRefresh(){
 
     var all_notes = JSON.parse(localStorage.getItem("Notes"));
+    var all_images = JSON.parse(localStorage.getItem("Images"));
 
     for(var j in all_notes)
     {
         notes.push(all_notes[j]);
+    }
+
+    for(var j in all_images)
+    {
+        images.push(all_images[j]);
     }
 
     var card_columns = $('.card-columns');  
@@ -98,6 +112,14 @@ function onRefresh(){
         if(notes[i].status == "binned")
         {
             var rendered = compiled_template({ note_value: notes[i].title , note_key: i });
+            card_columns.prepend(rendered);
+        }
+    }
+
+    for (var i = 0; i < images.length; i++) {
+        if(images[i].status == "binned")
+        {
+            var rendered = compiled_template_image({ image_title: images[i].title});
             card_columns.prepend(rendered);
         }
     }
@@ -134,6 +156,7 @@ function deleteNote() {
 function deleteDialog () {
 
     text_delete_title = card_body.find($('textarea')).val();
+    text_delete_title_image = card_body.find($('img')).attr('src');
 
     for(var i=0; i<notes.length ; i++)
     {
@@ -142,7 +165,15 @@ function deleteDialog () {
         }
     }
 
+    for(var i=0; i<images.length ; i++)
+    {
+        if(images[i].title == text_delete_title_image){
+            images = images.filter(item => { return item != images[i];})
+        }
+    }
+
     localStorage.setItem("Notes",JSON.stringify(notes));
+    localStorage.setItem("Images",JSON.stringify(images));
     card.remove();
     $('#exampleModalCenter').modal('hide');
     $('.toast').toast("show");
@@ -152,9 +183,15 @@ function deleteDialog () {
 function restoreNote(){
     card_body = $(this).parent();
     card = $(this).parent().parent();
+
     text_restore_title = card_body.find($('textarea')).val();
-    console.log(text_restore_title);
     changeStatus(text_restore_title, "active");
+
+    text_delete_title_image = card_body.find($('img')).attr('src');
+    changeStatusImage(text_delete_title_image, "active");
+
+    localStorage.setItem("Images",JSON.stringify(images));
+
     localStorage.setItem("Notes",JSON.stringify(notes));
     location.reload();
     $('.toast-restored').toast("show");
@@ -168,6 +205,14 @@ function changeStatus(title, status){
     for(var i=0; i<notes.length; i++){
         if(notes[i].title == title){
             notes[i].status = status;
+        }
+    }
+}
+
+function changeStatusImage(title, status){
+    for(var i=0; i<images.length; i++){
+        if(images[i].title == title){
+            images[i].status = status;
         }
     }
 }
