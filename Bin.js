@@ -28,7 +28,6 @@ $(document).ready(function () {
     compiled_template_image = Handlebars.compile(template_image);
 
     textareaRefresh($('textarea'));
-
     var mode = localStorage.getItem("Mode");
 
     if(mode == "Dark"){
@@ -38,6 +37,7 @@ $(document).ready(function () {
         lightMode();
     }
 
+    loadNotes();
     onRefresh();
 
     /**Displays button when user give focus to note. */
@@ -60,6 +60,8 @@ $(document).ready(function () {
     $('body').on('click', '#btn-dark', darkMode);
 
     $('.card-columns').on('click', '#restore', restoreNote);
+
+    $('.row').on('click','#btn-emptybin',emptyBin);
 
     /**Deletes button when user clicks on yes in dialog box. */
     $('#exampleModalCenter').on('click', '#confirm_delete', deleteDialog);
@@ -87,11 +89,7 @@ function textareaRefresh(element){
     });   
 }
 
-/**
- * Loads all notes stored in localStorage.
- */
-function onRefresh(){
-
+function loadNotes(){
     var all_notes = JSON.parse(localStorage.getItem("Notes"));
     var all_images = JSON.parse(localStorage.getItem("Images"));
 
@@ -104,6 +102,12 @@ function onRefresh(){
     {
         images.push(all_images[j]);
     }
+}
+
+/**
+ * Loads all notes stored in localStorage.
+ */
+function onRefresh(){
 
     var card_columns = $('.card-columns');  
     card_columns.empty();
@@ -193,7 +197,7 @@ function restoreNote(){
     localStorage.setItem("Images",JSON.stringify(images));
 
     localStorage.setItem("Notes",JSON.stringify(notes));
-    location.reload();
+    onRefresh();
     $('.toast-restored').toast("show");
 }
 
@@ -265,6 +269,8 @@ function darkMode(){
 /**delete all notes in bin section */
 function emptyBin(){
     notes = notes.filter(items => { return items.status !== "binned"});
+    images = images.filter(items => { return items.status !== "binned"});
     localStorage.setItem("Notes",JSON.stringify(notes));
-    location.reload();
+    localStorage.setItem("Images",JSON.stringify(images));
+    onRefresh();
 }

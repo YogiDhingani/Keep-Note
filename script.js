@@ -4,6 +4,7 @@ var compiled_template;
 var template_image;
 var compiled_template_image;
 var text_delete_title;
+var text_delete_title_image;
 var card_body;
 var card;
 
@@ -37,6 +38,7 @@ $(document).ready(function () {
         lightMode();
     }
 
+    loadNotes();
     onRefresh();
 
     /** insert note after user enter note and user click on outside of it (loses focus from it).*/
@@ -75,6 +77,12 @@ $(document).ready(function () {
 
     $('#file-input').on('change',uploadFile);
 
+    document.addEventListener('keydown', function(event){
+        if(event.keyCode == 90 && event.ctrlKey){
+         undoNote();
+        }
+      }, false);
+
 });
 
 /**Give transition to element passed as argument.
@@ -101,8 +109,8 @@ function textareaRefresh(element){
 /**
  * Loads all notes stored in localStorage.
  */
-function onRefresh(){
-
+function loadNotes(){
+    
     var all_notes = JSON.parse(localStorage.getItem("Notes"));
 	var all_images  = JSON.parse(localStorage.getItem("Images"));
 
@@ -115,15 +123,19 @@ function onRefresh(){
     {
         images.push(all_images[j]);
     }
+}
+function onRefresh(){
+
 	
+    $('.card-columns').empty();  
     var card_columns = $('.card-columns');  
-    card_columns.empty();
 
     for (var i = 0; i < notes.length; i++) {
         if(notes[i].status == "active")
         {
             var rendered = compiled_template({ note_value: notes[i].title , note_key: i });
             card_columns.prepend(rendered);
+            card_columns.append("</div>");
         }
     }
 	for (var i = 0; i < images.length; i++) {
@@ -136,6 +148,7 @@ function onRefresh(){
 
     textareaRefresh($('textarea'));
 }
+
 
 /**
  * Insert note to  page.
@@ -187,12 +200,11 @@ function deleteNote() {
     changeStatus(text_delete_title, "binned");
 	
 	text_delete_title_image = card_body.find($('img')).attr('src');
-	console.log(text_delete_title_image);
     changeStatusImage(text_delete_title_image, "binned");
 
     localStorage.setItem("Images",JSON.stringify(images));
-
     localStorage.setItem("Notes",JSON.stringify(notes));
+
     card.remove();
     $('.toast').toast("show");
 }
@@ -204,7 +216,7 @@ function undoNote(){
     changeStatusImage(text_delete_title_image,'active');
     localStorage.setItem("Notes",JSON.stringify(notes));
     localStorage.setItem("Images",JSON.stringify(images));
-    location.reload();
+    onRefresh();
 }
 
 /** changes particular task status.
@@ -304,7 +316,7 @@ function uploadFile(){
           processData: false,
           contentType: false,
           success: function(data){
-              location.reload();
+              onRefresh();
           }
         });
       }else{
