@@ -66,6 +66,12 @@ $(document).ready(function () {
     /**Deletes button when user clicks on yes in dialog box. */
     $('#exampleModalCenter').on('click', '#confirm_delete', deleteDialog);
 
+    document.addEventListener('keydown', function(event){
+        if(event.keyCode == 68 && event.ctrlKey){
+         emptyBin();
+        }
+      }, false);
+
 });
 
 /**Give transition to element passed as argument.
