@@ -41,7 +41,7 @@
   </nav>
 
   <div class="row" style="margin-top: 10px;">
-    <button class="btn" id="btn-emptybin">Empty Bin</button>
+    <button class="btn" id="btn-emptybindialog">Empty Bin</button>
   </div>
 
 <div style="margin-top:60px;" class="container cards">
@@ -70,7 +70,7 @@
   </div>
 </div>
 
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="modalDeleteNote" tabindex="-1" role="dialog" aria-labelledby="modalDeleteNote" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body">
@@ -79,6 +79,20 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
             <button type="button" class="btn btn-primary" id="confirm_delete">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalEmptyBin" tabindex="-1" role="dialog" aria-labelledby="modalEmptyBin" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            Are you sure you want to empty bin?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary" id="btn-emptybin">Yes</button>
           </div>
         </div>
       </div>

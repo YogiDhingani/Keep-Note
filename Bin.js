@@ -61,10 +61,12 @@ $(document).ready(function () {
 
     $('.card-columns').on('click', '#restore', restoreNote);
 
-    $('.row').on('click','#btn-emptybin',emptyBin);
+    $('.row').on('click','#btn-emptybindialog',modalEmptyBin);
+
+    $('#modalEmptyBin').on('click','#btn-emptybin',emptyBin);
 
     /**Deletes button when user clicks on yes in dialog box. */
-    $('#exampleModalCenter').on('click', '#confirm_delete', deleteDialog);
+    $('#modalDeleteNote').on('click', '#confirm_delete', deleteDialog);
 
     document.addEventListener('keydown', function(event){
         if(event.keyCode == 68 && event.ctrlKey){
@@ -159,7 +161,7 @@ function mouseOutCard(){
 function deleteNote() {
     card_body = $(this).parent();
     card = $(this).parent().parent();
-    $('#exampleModalCenter').modal('show');
+    $('#modalDeleteNote').modal('show');
 }
 
 /** Delete particular note on which it is called.*/
@@ -185,7 +187,7 @@ function deleteDialog () {
     localStorage.setItem("Notes",JSON.stringify(notes));
     localStorage.setItem("Images",JSON.stringify(images));
     card.remove();
-    $('#exampleModalCenter').modal('hide');
+    $('#modalDeleteNote').modal('hide');
     $('.toast').toast("show");
 }
 
@@ -272,11 +274,16 @@ function darkMode(){
     }
 }
 
+function modalEmptyBin(){
+    $('#modalEmptyBin').modal('show');
+}
+
 /**delete all notes in bin section */
 function emptyBin(){
     notes = notes.filter(items => { return items.status !== "binned"});
     images = images.filter(items => { return items.status !== "binned"});
     localStorage.setItem("Notes",JSON.stringify(notes));
     localStorage.setItem("Images",JSON.stringify(images));
+    $('#modalEmptyBin').modal('hide');
     onRefresh();
 }
