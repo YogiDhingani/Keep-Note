@@ -1,0 +1,15 @@
+.btn-orange {
+  background-color: var(--background-color) !important;
+  border: none !important;
+  color: var(--orange-color) !important;
+  opacity: 0;
+}
+
+.btn-orange:disabled {
+  opacity: 0 !important;
+}
+
+.btn-orange:hover {
+  color: var(--text-color) !important;
+}
+/*# sourceMappingURL=button.css.map */

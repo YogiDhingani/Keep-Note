@@ -7,7 +7,7 @@
         "take-a-note.scss",
         "all-notes.scss",
         "toast-and-modal.scss",
-        "button-orange.scss"
+        "button.scss"
     ],
     "names": [],
     "file": "mystyle.css"

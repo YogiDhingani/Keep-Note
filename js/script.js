@@ -121,8 +121,8 @@ function loadNotes(){
         images.push(all_images[j]);
     }
 }
-function onRefresh(){
 
+function onRefresh(){
 	
     $('.card-columns').empty();  
     var card_columns = $('.card-columns');  
