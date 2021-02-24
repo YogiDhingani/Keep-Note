@@ -1,0 +1,190 @@
+/* --backgroung-color: #202124; */
+* {
+  box-sizing: border-box;
+  font-family: Roboto, arial, sans-serif;
+}
+
+.header {
+  padding: 10px;
+  padding-left: 10px;
+  text-align: left;
+  background: #202124;
+  color: #e8eaed;
+}
+
+.header__heading {
+  font-family: Roboto, arial, sans-serif;
+}
+
+.navbar .navbar-nav .nav-item {
+  font-size: 20px;
+  text-align: center;
+}
+
+.navbar .navbar-nav .nav-item.active {
+  font-weight: bold;
+}
+
+.form-control:focus {
+  box-shadow: none !important;
+}
+
+body {
+  background-color: #202124 !important;
+}
+
+hr {
+  background-color: #e8eaed;
+}
+
+#note {
+  margin-top: 20px;
+  background-color: #202124;
+  color: #e8eaed;
+  outline: none;
+  resize: none;
+  height: 40px;
+}
+
+#note::placeholder {
+  color: #e8eaed;
+  opacity: 1;
+}
+
+#note:focus {
+  background-color: #202124;
+  color: #e8eaed;
+  outline-color: transparent !important;
+  outline: none !important;
+  height: 40px;
+}
+
+.btn-dark {
+  background-color: #202124 !important;
+  border: none !important;
+  color: #FB8122 !important;
+  opacity: 0;
+}
+
+.btn-dark:disabled {
+  opacity: 0 !important;
+}
+
+.btn-dark:hover {
+  color: #e8eaed !important;
+}
+
+.cards {
+  margin-top: 20px;
+}
+
+.cards .card-body__textarea {
+  background-color: #202124 !important;
+  color: #e8eaed;
+  border: none;
+  resize: none;
+}
+
+.cards .card-body__textarea:focus {
+  background-color: #202124 !important;
+  color: #e8eaed;
+  border: none;
+  resize: none;
+}
+
+.card {
+  border-radius: 10px !important;
+}
+
+.card-body {
+  background-color: #202124;
+  color: #e8eaed;
+  border-radius: 10px !important;
+}
+
+.modal-content {
+  background-color: #202124 !important;
+  color: #e8eaed !important;
+}
+
+.modal-footer .button {
+  color: #e8eaed !important;
+}
+
+.toast {
+  position: fixed !important;
+  left: 10px !important;
+  bottom: 10px !important;
+}
+
+.toast-body {
+  background-color: #16504b !important;
+  color: #e8eaed !important;
+  height: 50px;
+  width: 300px;
+}
+
+i {
+  color: #e8eaed;
+}
+
+#btn-undo {
+  margin-left: 20px;
+  background-color: #16504b !important;
+  border: none !important;
+  color: #FB8122 !important;
+}
+
+.btn-group {
+  position: absolute !important;
+  right: 15px !important;
+  top: 15px !important;
+}
+
+#btn-light {
+  background-color: #202124;
+  color: #e8eaed;
+}
+
+#btn-dark {
+  background-color: #e8eaed;
+  color: #202124;
+}
+
+/* #btn-dark{
+  background-color: $text-color;
+  color: $background-color;
+} */
+.bg-dark {
+  background-color: #202124 !important;
+}
+
+#logo_upload_image {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+}
+
+.image-upload {
+  position: absolute;
+  margin-top: 13px;
+  right: 50px;
+}
+
+.image-upload > input {
+  display: none;
+}
+
+#display_image {
+  width: 100%;
+  height: auto;
+}
+
+#btn-emptybindialog {
+  position: absolute;
+  right: 10px;
+  float: right;
+  background-color: #FB8122;
+}
+
+/*# sourceMappingURL=mystyle2.css.map */

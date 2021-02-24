@@ -10,11 +10,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 <script src="Bin.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
   
 </head>
 
@@ -41,7 +41,7 @@
   </nav>
 
   <div class="row" style="margin-top: 10px;">
-    <button class="btn" id="btn-emptybindialog">Empty Bin</button>
+    <button class="btn" id="btn-empty_bin_dialog">Empty Bin</button>
   </div>
 
 <div style="margin-top:60px;" class="container cards">
@@ -51,8 +51,8 @@
       <div class="card" id="card">
         <div class="card-body text-center" id="card-body">
             <textarea class="card-body__textarea form-control card-text" readonly>{{note_value}}</textarea>
-            <button  id="delete" class="btn btn-dark">Delete</button>
-            <button id="restore" class="btn btn-dark">Restore</button>
+            <button  id="btn-delete" class="btn btn-orange">Delete</button>
+            <button id="btn-restore" class="btn btn-orange">Restore</button>
         </div>
       </div>
     </script>
@@ -61,8 +61,8 @@
       <div class="card" id="card">
         <div class="card-body text-center" id="card-body">
             <img id="display_image" src="{{image_title}}"/>
-            <button  id="delete" class="btn btn-dark">Delete</button>
-            <button id="restore" class="btn btn-dark">Restore</button>
+            <button  id="btn-delete" class="btn btn-orange">Delete</button>
+            <button id="btn-restore" class="btn btn-orange">Restore</button>
         </div>
       </div>
     </script>
@@ -70,7 +70,7 @@
   </div>
 </div>
 
-    <div class="modal fade" id="modalDeleteNote" tabindex="-1" role="dialog" aria-labelledby="modalDeleteNote" aria-hidden="true">
+    <div class="modal fade" id="dialog_delete_note" tabindex="-1" role="dialog" aria-labelledby="dialog_delete_note" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body">
@@ -78,13 +78,13 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-            <button type="button" class="btn btn-primary" id="confirm_delete">Yes</button>
+            <button type="button" class="btn btn-primary" id="btn-confirm_delete_on_dialog">Yes</button>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="modal fade" id="modalEmptyBin" tabindex="-1" role="dialog" aria-labelledby="modalEmptyBin" aria-hidden="true">
+    <div class="modal fade" id="dialog_empty_bin" tabindex="-1" role="dialog" aria-labelledby="dialog_empty_bin" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body">
@@ -92,7 +92,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-            <button type="button" class="btn btn-primary" id="btn-emptybin">Yes</button>
+            <button type="button" class="btn btn-primary" id="btn-empty_bin_on_dialog">Yes</button>
           </div>
         </div>
       </div>
@@ -103,7 +103,7 @@
         Task is deleted!!      
         <!-- <button type="button" id="btn-undo">Undo</button> -->
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-          <i class="fa fa-times-circle"></i>
+          <i class="fa fa-times-circle icon"></i>
         </button>
       </div>
     </div>

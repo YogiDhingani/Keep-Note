@@ -57,14 +57,11 @@ $(document).ready(function () {
     $('body').on('mouseout', '.card-body', mouseOutCard);
 
     /**Shows dialog to user wheather delete button or not.*/
-    $('body').on('click', '#delete', deleteNote);
+    $('body').on('click', '#btn-delete', deleteNote);
 
     $('body').on('click', '#btn-light', lightMode);
 
     $('body').on('click', '#btn-dark', darkMode);
-
-    /**Deletes button when user clicks on yes in dialog box. */
-    // $('#exampleModalCenter').on('click', '#confirm_delete', deleteDialog);
 
     /**Stores old title value to OldTitleVal global variable.*/
     $('.card-columns').on('focusin','.card-body__textarea',(event) => {old_title_val = $(event.target).val();});

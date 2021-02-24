@@ -53,20 +53,20 @@ $(document).ready(function () {
     $('body').on('mouseout', '.card-body', mouseOutCard);
 
     /**Shows dialog to user wheather delete button or not.*/
-    $('body').on('click', '#delete', deleteNote);
+    $('body').on('click', '#btn-delete', deleteNote);
 
     $('body').on('click', '#btn-light', lightMode);
 
     $('body').on('click', '#btn-dark', darkMode);
 
-    $('.card-columns').on('click', '#restore', restoreNote);
+    $('.card-columns').on('click', '#btn-restore', restoreNote);
 
-    $('.row').on('click','#btn-emptybindialog',modalEmptyBin);
+    $('.row').on('click','#btn-empty_bin_dialog',modalEmptyBin);
 
-    $('#modalEmptyBin').on('click','#btn-emptybin',emptyBin);
+    $('#dialog_empty_bin').on('click','#btn-empty_bin_on_dialog',emptyBin);
 
     /**Deletes button when user clicks on yes in dialog box. */
-    $('#modalDeleteNote').on('click', '#confirm_delete', deleteDialog);
+    $('#dialog_delete_note').on('click', '#btn-confirm_delete_on_dialog', deleteDialog);
 
     document.addEventListener('keydown', function(event){
         if(event.keyCode == 68 && event.ctrlKey){
@@ -142,7 +142,7 @@ function onRefresh(){
 /**     Displays button to user (Changes button opacity to 1)*/
 function mouseOverCard(){
         var delete_button = this.querySelector('button');
-        var restore_button = this.querySelector('#restore')
+        var restore_button = this.querySelector('#btn-restore');
         transition(delete_button);
         transition(restore_button);
         delete_button.style.opacity = 1;
@@ -153,7 +153,7 @@ function mouseOverCard(){
 function mouseOutCard(){
         var delete_button = this.querySelector('button');
         delete_button.style.opacity = 0;
-        var restore_button = this.querySelector('#restore');
+        var restore_button = this.querySelector('#btn-restore');
         restore_button.style.opacity = 0;
 }
 
@@ -161,7 +161,7 @@ function mouseOutCard(){
 function deleteNote() {
     card_body = $(this).parent();
     card = $(this).parent().parent();
-    $('#modalDeleteNote').modal('show');
+    $('#dialog_delete_note').modal('show');
 }
 
 /** Delete particular note on which it is called.*/
@@ -187,7 +187,7 @@ function deleteDialog () {
     localStorage.setItem("Notes",JSON.stringify(notes));
     localStorage.setItem("Images",JSON.stringify(images));
     card.remove();
-    $('#modalDeleteNote').modal('hide');
+    $('#dialog_delete_note').modal('hide');
     $('.toast').toast("show");
 }
 
@@ -275,7 +275,7 @@ function darkMode(){
 }
 
 function modalEmptyBin(){
-    $('#modalEmptyBin').modal('show');
+    $('#dialog_empty_bin').modal('show');
 }
 
 /**delete all notes in bin section */
@@ -284,6 +284,6 @@ function emptyBin(){
     images = images.filter(items => { return items.status !== "binned"});
     localStorage.setItem("Notes",JSON.stringify(notes));
     localStorage.setItem("Images",JSON.stringify(images));
-    $('#modalEmptyBin').modal('hide');
+    $('#dialog_empty_bin').modal('hide');
     onRefresh();
 }
