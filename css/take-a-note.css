@@ -1,0 +1,55 @@
+#note {
+  margin-top: 20px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  outline: none;
+  resize: none;
+  height: 40px;
+}
+
+#note::-webkit-input-placeholder {
+  color: var(--text-color);
+  opacity: 1;
+}
+
+#note:-ms-input-placeholder {
+  color: var(--text-color);
+  opacity: 1;
+}
+
+#note::-ms-input-placeholder {
+  color: var(--text-color);
+  opacity: 1;
+}
+
+#note::placeholder {
+  color: var(--text-color);
+  opacity: 1;
+}
+
+#note:focus {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  outline-color: transparent !important;
+  outline: none !important;
+  height: 40px;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+.image-upload {
+  position: absolute;
+  margin-top: 13px;
+  right: 50px;
+}
+
+.image-upload > input {
+  display: none;
+}
+
+.image-upload .image-upload__logo-upload-image {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+}
+/*# sourceMappingURL=take-a-note.css.map */

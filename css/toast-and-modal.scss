@@ -1,0 +1,35 @@
+.modal-content{
+    background-color: var(--background-color)!important;
+    color: var(--text-color)!important;
+  }
+  
+  .modal-footer{
+      .button{
+          color: var(--text-color)!important;
+      }
+  } 
+  
+  .toast{
+  
+    position: fixed!important;
+    left: 10px!important;
+    bottom: 10px!important;
+  
+    .toast-body{
+      background-color: #16504b!important;
+      color: var(--text-color)!important;
+      height: 50px;
+      width: 300px;
+  
+      .toast-body__btn-undo{
+          margin-left: 20px;
+          background-color:  #16504b!important;
+          border: none!important;
+          color: var(--orange-color)!important;
+      }
+  
+      i{
+          color: var(--text-color)!important;
+      }
+    }
+  }

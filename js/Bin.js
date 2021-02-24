@@ -61,7 +61,7 @@ $(document).ready(function () {
 
     $('.card-columns').on('click', '#btn-restore', restoreNote);
 
-    $('.row').on('click','#btn-empty_bin_dialog',modalEmptyBin);
+    $('.row').on('click','#btn-empty_bin',modalEmptyBin);
 
     $('#dialog_empty_bin').on('click','#btn-empty_bin_on_dialog',emptyBin);
 

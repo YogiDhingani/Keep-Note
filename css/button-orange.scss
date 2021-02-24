@@ -1,0 +1,14 @@
+.btn-orange{
+    background-color: var(--background-color)!important;
+    border: none!important;
+    color: var(--orange-color)!important;
+    opacity: 0;
+    
+    &:disabled{
+      opacity: 0!important;
+    }
+  
+    &:hover{
+      color: var(--text-color)!important;
+    }
+  }

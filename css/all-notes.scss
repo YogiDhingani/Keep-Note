@@ -1,0 +1,33 @@
+.card-columns{
+    margin-top: 20px;
+  
+    .card{
+      border-radius: 10px!important;
+    
+      .card-body{
+        background-color: var(--background-color);
+        color: var(--text-color);
+        border-radius: 10px!important;
+    
+        .card-body__display_image{
+            width: 100%;
+            height: auto;
+        }
+      }
+    }
+  
+    .card-body__textarea{
+      background-color: var(--background-color) !important;
+      color: var(--text-color);
+      border: none;
+      resize: none;
+  
+      &:focus{
+          background-color: var(--background-color) !important;
+          color: var(--text-color);
+          border: none;
+          resize: none;
+      }
+    }
+  }
+  

@@ -1,0 +1,27 @@
+.header {
+    padding: 10px; 
+    padding-left: 10px;
+    text-align: left; 
+    background: var(--background-color);
+    color: var(--text-color); 
+  
+    .divider{
+      background-color: var(--text-color);
+    }
+  
+    .btn-group{
+      position: absolute!important;
+      right:15px!important;
+      top: 15px!important;
+  
+      .btn-light{
+          background-color: var(--background-color);
+          color: var(--text-color);
+        }
+        
+        .btn-dark{
+          background-color: var(--text-color);
+          color: var(--background-color);
+        }
+    }
+  }

@@ -1,0 +1,38 @@
+#note{
+    margin-top: 20px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    outline: none;
+    resize: none;
+    height: 40px;
+  
+    &::placeholder{
+      color: var(--text-color);
+      opacity: 1;
+    }
+  
+    &:focus{
+      background-color: var(--background-color);
+      color: var(--text-color);
+      outline-color: transparent !important;
+      outline: none!important;
+      height: 40px;
+      box-shadow: none !important;
+    }
+  }
+
+  .image-upload{
+    position: absolute;
+    margin-top: 13px;
+    right: 50px;
+  
+    &>input{
+      display: none;
+    }
+  
+    .image-upload__logo-upload-image{
+      position: absolute;
+      height: 30px;
+      width: 30px;
+    }
+  }

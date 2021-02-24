@@ -1,0 +1,28 @@
+@import "header.scss";
+@import "take-a-note.scss";
+@import "all-notes.scss";
+@import "toast-and-modal.scss";
+@import "button-orange.scss";
+
+:root{
+  --background-color:  rgb(32, 33, 36);
+  --text-color: rgb(232, 234, 237);
+  --orange-color: #FB8122;
+}
+
+*{
+  box-sizing: border-box;
+  font-family: Roboto, arial, sans-serif;
+}
+
+body{
+  background-color: var(--background-color)!important;
+}
+
+#btn-empty_bin{
+  position: absolute;
+  right:10px;
+  float:right;
+  background-color: var(--orange-color);
+}
+
