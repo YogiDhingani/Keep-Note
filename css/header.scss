@@ -8,10 +8,18 @@
     .divider{
       background-color: var(--text-color);
     }
+
+    .logout{
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background-color: var(--text-color);
+      color: var(--background-color);
+    }
   
     .btn-group{
       position: absolute!important;
-      right:15px!important;
+      right: 100px!important;
       top: 15px!important;
   
       .btn-light{

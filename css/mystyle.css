@@ -10,9 +10,17 @@
   background-color: var(--text-color);
 }
 
+.header .logout {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
+
 .header .btn-group {
   position: absolute !important;
-  right: 15px !important;
+  right: 100px !important;
   top: 15px !important;
 }
 
@@ -160,6 +168,10 @@
 
 .btn-orange:hover {
   color: var(--text-color) !important;
+}
+
+label {
+  color: var(--text-color);
 }
 
 :root {

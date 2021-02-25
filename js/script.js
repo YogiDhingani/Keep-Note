@@ -8,6 +8,15 @@ var text_delete_title_image;
 var card_body;
 var card;
 
+// var mysql = require('mysql');
+
+// var con = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "",
+//   database: "notes"
+// });
+
 /**
  * Global notes array containing all notes value.
  */
@@ -160,6 +169,17 @@ function insertNote(){
             card_columns.prepend(rendered);
             notes.push({title: $('#note').val(), status:"active"});
             localStorage.setItem("Notes",JSON.stringify(notes));
+
+            // con.connect(function(err) {
+            //     if (err) throw err;
+            //     console.log("Connected!");
+            //     //Insert a record in the "customers" table:
+            //     var sql = "INSERT INTO all_notes(note_title, status, note_type, user_id) VALUES ($('#note').val(), 'active', 'text', '1')";
+            //     con.query(sql, function (err, result) {
+            //       if (err) throw err;
+            //       console.log("1 record inserted");
+            //     });
+            //   });
 
             $('#note').val("");
 
@@ -321,5 +341,12 @@ function uploadFile(){
       }
     }else{
       alert('Input something!');
+    }
+  }
+
+  function logout(){
+    var r = confirm("You want to logout?");
+    if(r){
+      window.location.href="logout.php";
     }
   }
