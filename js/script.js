@@ -167,19 +167,21 @@ function insertNote(){
             var rendered = compiled_template({ note_value: $('#note').val().trim()});
 
             card_columns.prepend(rendered);
+            var note_value = $('#note').val();
             notes.push({title: $('#note').val(), status:"active"});
             localStorage.setItem("Notes",JSON.stringify(notes));
-
-            // con.connect(function(err) {
-            //     if (err) throw err;
-            //     console.log("Connected!");
-            //     //Insert a record in the "customers" table:
-            //     var sql = "INSERT INTO all_notes(note_title, status, note_type, user_id) VALUES ($('#note').val(), 'active', 'text', '1')";
-            //     con.query(sql, function (err, result) {
-            //       if (err) throw err;
-            //       console.log("1 record inserted");
-            //     });
+            // $.ajax({
+            //     url: "insert.php",
+            //     type: "POST",
+            //     data: {note: "JAm"},
+            //     processData: false,
+            //     contentType: false,
+            //     success: function(data){
+            //         console.log(data);
+            //     }
             //   });
+            $.post('insert.php?msg='+note_value);
+            // window.location = "keepnotes.local/index.php?msg="+note_value;
 
             $('#note').val("");
 
@@ -344,7 +346,7 @@ function uploadFile(){
     }
   }
 
-  function logout(){
+function logout(){
     var r = confirm("You want to logout?");
     if(r){
       window.location.href="logout.php";
