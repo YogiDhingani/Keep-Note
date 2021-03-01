@@ -50,7 +50,7 @@ if(!isset($_SESSION['user_id'])){
         <a class="nav-link" href="#">Note</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="Bin.html">Bin</a>
+        <a class="nav-link" href="Bin_page.php">Bin</a>
       </li>
     </ul>
   </nav>

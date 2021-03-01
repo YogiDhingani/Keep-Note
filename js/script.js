@@ -20,6 +20,7 @@ var card;
 /**
  * Global notes array containing all notes value.
  */
+var all_notes_sql = new Array();
 var images = new Array();
 var notes = new Array();
 
@@ -75,7 +76,7 @@ $(document).ready(function () {
     /**Stores old title value to OldTitleVal global variable.*/
     $('.card-columns').on('focusin','.card-body__textarea',(event) => {old_title_val = $(event.target).val();});
 
-    /**Update note to lates value entered by user. */
+    /**Update note to latest value entered by user. */
     $('.card-columns').on('focusout', '.card-body__textarea', updateNote);
 
     /**Undo deleted note. */
@@ -120,6 +121,17 @@ function loadNotes(){
     var all_notes = JSON.parse(localStorage.getItem("Notes"));
 	var all_images  = JSON.parse(localStorage.getItem("Images"));
 
+    // $.post('onload.php?status=active',
+    // function(data){
+    //     var notes = JSON.parse(data);
+    //     for(var j in notes)
+    //     {
+    //         console.log(notes[j]);
+    //         all_notes_sql.push(notes[j]);
+    //     }
+    // });
+    // console.log(all_notes_sql);
+
     for(var j in all_notes)
     {
         notes.push(all_notes[j]);
@@ -131,26 +143,50 @@ function loadNotes(){
     }
 }
 
+var notes_active;
+
 function onRefresh(){
 	
     $('.card-columns').empty();  
     var card_columns = $('.card-columns');  
 
-    for (var i = 0; i < notes.length; i++) {
-        if(notes[i].status == "active")
+    $.post('onload.php?status=active',
+    function (data){
+
+        notes_active = JSON.parse(data);
+
+        all_notes_sql = notes_active;
+        for(var i=0; i < notes_active.length; i++)
         {
-            var rendered = compiled_template({ note_value: notes[i].title , note_key: i });
-            card_columns.prepend(rendered);
-            card_columns.append("</div>");
+            if(all_notes_sql[i].status == "active" && all_notes_sql[i].note_type == "text"){
+                var rendered = compiled_template({ note_value: all_notes_sql[i].note_title, note_key: i});
+                card_columns.prepend(rendered);
+            }
+            if(all_notes_sql[i].status == "active" && all_notes_sql[i].note_type == "image"){
+                var rendered = compiled_template_image({ image_title: all_notes_sql[i].note_title});
+                card_columns.prepend(rendered);
+            }
         }
-    }
-	for (var i = 0; i < images.length; i++) {
-        if(images[i].status == "active")
-        {
-            var rendered = compiled_template_image({ image_title: images[i].title});
-            card_columns.prepend(rendered);
-        }
-    }
+    });
+
+    // console.log(notes);
+    // console.log(notes.length);
+    // for (var i = 0; i < notes.length; i++) {
+    //     if(notes[i].status == "active")
+    //     {
+    //         var rendered = compiled_template({ note_value: notes[i].title , note_key: i });
+    //         card_columns.prepend(rendered);
+    //         card_columns.append("</div>");
+    //     }
+    // }
+
+	// for (var i = 0; i < images.length; i++) {
+    //     if(images[i].status == "active")
+    //     {
+    //         var rendered = compiled_template_image({ image_title: images[i].title});
+    //         card_columns.prepend(rendered);
+    //     }
+    // }
 
     textareaRefresh($('textarea'));
 }
@@ -170,17 +206,12 @@ function insertNote(){
             var note_value = $('#note').val();
             notes.push({title: $('#note').val(), status:"active"});
             localStorage.setItem("Notes",JSON.stringify(notes));
-            // $.ajax({
-            //     url: "insert.php",
-            //     type: "POST",
-            //     data: {note: "JAm"},
-            //     processData: false,
-            //     contentType: false,
-            //     success: function(data){
-            //         console.log(data);
-            //     }
-            //   });
-            $.post('insert.php?msg='+note_value);
+
+            $.post('insert.php?msg='+note_value,
+            function(data)
+            {
+                // console.log(data);
+            });
             // window.location = "keepnotes.local/index.php?msg="+note_value;
 
             $('#note').val("");
@@ -224,6 +255,16 @@ function deleteNote() {
     localStorage.setItem("Images",JSON.stringify(images));
     localStorage.setItem("Notes",JSON.stringify(notes));
 
+    $.post('bin.php?title='+text_delete_title,
+    function(data){
+        // console.log(data);
+    });
+
+    $.post('bin.php?title='+text_delete_title_image,
+    function(data){
+        // console.log(data);
+    });
+
     card.remove();
     $('.toast').toast("show");
 }
@@ -231,10 +272,21 @@ function deleteNote() {
 /**     Undo deleted note */
 function undoNote(){
     $('.toast').toast("hide");
-    changeStatus(text_delete_title,'active');
-    changeStatusImage(text_delete_title_image,'active');
-    localStorage.setItem("Notes",JSON.stringify(notes));
-    localStorage.setItem("Images",JSON.stringify(images));
+    // changeStatus(text_delete_title,'active');
+    // changeStatusImage(text_delete_title_image,'active');
+
+    $.post('undo.php?title='+text_delete_title,
+    function(data){
+        // console.log(data);
+    });
+
+    $.post('undo.php?title='+text_delete_title_image,
+    function(data){
+        // console.log(data);
+    });
+
+    // localStorage.setItem("Notes",JSON.stringify(notes));
+    // localStorage.setItem("Images",JSON.stringify(images));
     onRefresh();
 }
 
@@ -262,6 +314,11 @@ function changeStatusImage(title, status){
 function updateNote() {
 
     var new_title_val = $(this).val().trim();
+
+    $.post('update.php?oldTitle='+old_title_val+'&newTitle='+new_title_val,
+    function(data){
+        // console.log(data);
+    });
     
         for(var i=0; i<notes.length; i++){
             if(notes[i].title == old_title_val){
@@ -329,7 +386,7 @@ function uploadFile(){
 		images.push({ title:"/image/"+file.name, status:"active"});
 		localStorage.setItem("Images",JSON.stringify(images));
         $.ajax({
-          url: "upload.php",
+          url: "upload.php?path=/image/"+file.name,
           type: "POST",
           data: formData,
           processData: false,

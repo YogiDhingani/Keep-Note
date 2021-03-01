@@ -73,7 +73,6 @@ $(document).ready(function () {
          emptyBin();
         }
       }, false);
-
 });
 
 /**Give transition to element passed as argument.
@@ -117,24 +116,48 @@ function loadNotes(){
  */
 function onRefresh(){
 
+    
+    $('.card-columns').empty();  
     var card_columns = $('.card-columns');  
-    card_columns.empty();
 
-    for (var i = 0; i < notes.length; i++) {
-        if(notes[i].status == "binned")
-        {
-            var rendered = compiled_template({ note_value: notes[i].title , note_key: i });
-            card_columns.prepend(rendered);
-        }
-    }
+    $.post('onload.php?status=binned',
+    function (data)
+    {
+        
+        notes_binned = JSON.parse(data);
 
-    for (var i = 0; i < images.length; i++) {
-        if(images[i].status == "binned")
+        all_notes_sql = notes_binned;
+        for(var i=0; i < notes_binned.length; i++)
         {
-            var rendered = compiled_template_image({ image_title: images[i].title});
-            card_columns.prepend(rendered);
+            if(all_notes_sql[i].status == "binned" && all_notes_sql[i].note_type == "text"){
+                var rendered = compiled_template({ note_value: all_notes_sql[i].note_title, note_key: i});
+                card_columns.prepend(rendered);
+            }
+            if(all_notes_sql[i].status == "binned" && all_notes_sql[i].note_type == "image"){
+                var rendered = compiled_template_image({ image_title: all_notes_sql[i].note_title});
+                card_columns.prepend(rendered);
+            }
         }
-    }
+    });
+
+    // var card_columns = $('.card-columns');  
+    // card_columns.empty();
+
+    // for (var i = 0; i < notes.length; i++) {
+    //     if(notes[i].status == "binned")
+    //     {
+    //         var rendered = compiled_template({ note_value: notes[i].title , note_key: i });
+    //         card_columns.prepend(rendered);
+    //     }
+    // }
+
+    // for (var i = 0; i < images.length; i++) {
+    //     if(images[i].status == "binned")
+    //     {
+    //         var rendered = compiled_template_image({ image_title: images[i].title});
+    //         card_columns.prepend(rendered);
+    //     }
+    // }
 
     textareaRefresh($('textarea'));
 }
@@ -170,41 +193,63 @@ function deleteDialog () {
     text_delete_title = card_body.find($('textarea')).val();
     text_delete_title_image = card_body.find($('img')).attr('src');
 
-    for(var i=0; i<notes.length ; i++)
-    {
-        if(notes[i].title == text_delete_title){
-            notes = notes.filter(item => { return item != notes[i];})
-        }
-    }
+    // for(var i=0; i<notes.length ; i++)
+    // {
+    //     if(notes[i].title == text_delete_title){
+    //         notes = notes.filter(item => { return item != notes[i];})
+    //     }
+    // }
 
-    for(var i=0; i<images.length ; i++)
-    {
-        if(images[i].title == text_delete_title_image){
-            images = images.filter(item => { return item != images[i];})
-        }
-    }
+    // for(var i=0; i<images.length ; i++)
+    // {
+    //     if(images[i].title == text_delete_title_image){
+    //         images = images.filter(item => { return item != images[i];})
+    //     }
+    // }
 
-    localStorage.setItem("Notes",JSON.stringify(notes));
-    localStorage.setItem("Images",JSON.stringify(images));
+    // localStorage.setItem("Notes",JSON.stringify(notes));
+    // localStorage.setItem("Images",JSON.stringify(images));
+
+    $.post('delete.php?title='+text_delete_title,
+    function(data){
+        // console.log(data);
+    });
+
+    $.post('delete.php?title='+text_delete_title_image,
+    function(data){
+        // console.log(data);
+    });
+
     card.remove();
     $('#dialog_delete_note').modal('hide');
-    $('.toast').toast("show");
+    $('.toast-deleted').toast("show");
 }
 
 /**Restore note from binned section to notes section. */
 function restoreNote(){
+
     card_body = $(this).parent();
     card = $(this).parent().parent();
 
     text_restore_title = card_body.find($('textarea')).val();
-    changeStatus(text_restore_title, "active");
+    // changeStatus(text_restore_title, "active");
 
-    text_delete_title_image = card_body.find($('img')).attr('src');
-    changeStatusImage(text_delete_title_image, "active");
+    text_restore_title_image = card_body.find($('img')).attr('src');
+    // changeStatusImage(text_restore_title_image, "active");
 
-    localStorage.setItem("Images",JSON.stringify(images));
+    $.post('undo.php?title='+text_restore_title,
+    function(data){
+        // console.log(data);
+    });
 
-    localStorage.setItem("Notes",JSON.stringify(notes));
+    $.post('undo.php?title='+text_restore_title_image,
+    function(data){
+        // console.log(data);
+    });
+
+    // localStorage.setItem("Images",JSON.stringify(images));
+    // localStorage.setItem("Notes",JSON.stringify(notes));
+
     onRefresh();
     $('.toast-restored').toast("show");
 }
@@ -280,10 +325,16 @@ function modalEmptyBin(){
 
 /**delete all notes in bin section */
 function emptyBin(){
-    notes = notes.filter(items => { return items.status !== "binned"});
-    images = images.filter(items => { return items.status !== "binned"});
-    localStorage.setItem("Notes",JSON.stringify(notes));
-    localStorage.setItem("Images",JSON.stringify(images));
+    // notes = notes.filter(items => { return items.status !== "binned"});
+    // images = images.filter(items => { return items.status !== "binned"});
+    // localStorage.setItem("Notes",JSON.stringify(notes));
+    // localStorage.setItem("Images",JSON.stringify(images));
+
+    $.post('emptybin.php?title=',
+    function(data){
+        // console.log(data);
+    });
+
     $('#dialog_empty_bin').modal('hide');
     onRefresh();
 }
