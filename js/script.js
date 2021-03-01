@@ -69,6 +69,10 @@ $(document).ready(function () {
     /**Shows dialog to user wheather delete button or not.*/
     $('body').on('click', '#btn-delete', deleteNote);
 
+    $('body').on('click', '#btn-share-dialog', shareNoteDialog);
+
+    $('#shareModal').on('click', '#btn-share', shareNote);
+
     $('body').on('click', '#btn-light', lightMode);
 
     $('body').on('click', '#btn-dark', darkMode);
@@ -169,6 +173,8 @@ function onRefresh(){
         }
     });
 
+    textareaRefresh($('textarea'));
+
     // console.log(notes);
     // console.log(notes.length);
     // for (var i = 0; i < notes.length; i++) {
@@ -187,8 +193,6 @@ function onRefresh(){
     //         card_columns.prepend(rendered);
     //     }
     // }
-
-    textareaRefresh($('textarea'));
 }
 
 
@@ -229,15 +233,25 @@ function insertNote(){
 
 /**     Displays button to user (Changes button opacity to 1)*/
 function mouseOverCard(){
+        // var delete_button = this.querySelector('button');
+        // transition(delete_button);
+        // delete_button.style.opacity = 1;
         var delete_button = this.querySelector('button');
+        var share_button = this.querySelector('#btn-share-dialog');
         transition(delete_button);
+        transition(share_button);
         delete_button.style.opacity = 1;
+        share_button.style.opacity = 1;
 }
 
 /**     Hides button from user (Changes button opacity to 0)*/
 function mouseOutCard(){
+        // var delete_button = this.querySelector('button');
+        // delete_button.style.opacity = 0;
         var delete_button = this.querySelector('button');
         delete_button.style.opacity = 0;
+        var share_button = this.querySelector('#btn-share-dialog');
+        share_button.style.opacity = 0;
 }
 
 /**     Show dialog box of confirm delete note. */
@@ -268,6 +282,47 @@ function deleteNote() {
     card.remove();
     $('.toast').toast("show");
 }
+
+function shareNoteDialog()
+{
+    card_body = $(this).parent();
+    card = $(this).parent().parent();
+
+    $('#shareModal').modal('show');
+}
+
+var modal_body;
+var email_share;
+
+function shareNote()
+{
+    text_delete_title = card_body.find($('textarea')).val();
+	
+	text_delete_title_image = card_body.find($('img')).attr('src');
+
+    modal_body = $(this).parent().parent().parent();
+
+    email_share = modal_body.find($('#email')).val();
+    // console.log(email_share);
+
+    $.post('shareNote.php?title='+text_delete_title+'&email='+email_share,
+    function(data){
+        // console.log(data);
+    });
+
+    $.post('shareNote.php?title='+text_delete_title_image+'&email='+email_share,
+    function(data){
+        // if(data == "true"){
+        // {
+            $('#shareModal').modal('hide');
+        //     $('.toast-share').toast('show');
+        // console.log(data);
+        // }
+    });
+
+    
+}
+
 
 /**     Undo deleted note */
 function undoNote(){

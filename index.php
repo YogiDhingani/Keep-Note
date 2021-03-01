@@ -74,18 +74,20 @@ if(!isset($_SESSION['user_id'])){
           <div class="card-body text-center" id="card-body">
               <textarea class="card-body__textarea form-control card-text">{{note_value}}</textarea>
               <button  id="btn-delete" class="btn btn-orange">Delete</button>
+              <button  id="btn-share-dialog" class="btn btn-orange">Share</button>
           </div>
         </div>
       </script>
 	  
-	  <script id="template-addImage" type="text/x-handlebars-template">
-        <div class="card" id="card">
-          <div class="card-body text-center" id="card-body">
-              <img class="card-body__display_image" id="display_image" src="{{image_title}}"/>
-              <button  id="btn-delete" class="btn btn-orange">Delete</button>
+      <script id="template-addImage" type="text/x-handlebars-template">
+          <div class="card" id="card">
+            <div class="card-body text-center" id="card-body">
+                <img class="card-body__display_image" id="display_image" src="{{image_title}}"/>
+                <button  id="btn-delete" class="btn btn-orange">Delete</button>
+                <button  id="btn-share-dialog" class="btn btn-orange">Share</button>
+            </div>
           </div>
-        </div>
-    </script>
+      </script>
 	  
     </div>
   </div>
@@ -104,7 +106,33 @@ if(!isset($_SESSION['user_id'])){
     </div>
   </div>
 
-  <div class="toast" data-delay="3000">
+  <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Please enter email address of with whom you want to share it?</h5>
+        </div>
+        <div class="modal-body">
+          <!-- <form method="post" action="shareNote.php"> -->
+            <div class="form-group row">
+              <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+              <div class="col-sm-8">
+                <input type="email" id="email" class="form-control" name="email" placeholder="example@gmail.com">
+              </div>
+            </div>
+            <div class="form-group row">
+              <button type="button" style="margin-left:15px" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <div class="col-sm-2">
+              <input type="submit" id="btn-share" class="btn btn-primary" value="Share" name="share">
+              </div>
+            </div>
+          <!-- </form> -->
+        </div>
+      </div>
+    </div>
+</div>
+
+  <div class="toast-delete toast" data-delay="3000">
     <div class="toast-body">
       Task is deleted!!      
       <button type="button" class="toast-body__btn-undo" id="btn-undo">Undo</button>
@@ -114,6 +142,15 @@ if(!isset($_SESSION['user_id'])){
     </div>
   </div>
 
+  <div class="toast-share toast" data-delay="3000">
+    <div class="toast-body">
+      Task is shared successfully!!      
+      <button type="button" class="toast-body__btn-undo" id="btn-undo">Undo</button>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <i class="fa fa-times-circle"></i>
+      </button>
+    </div>
+  </div>
 </body>
 
 </html>

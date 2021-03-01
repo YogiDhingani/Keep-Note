@@ -15,7 +15,6 @@
         if($conn->query($sql2) === TRUE){
             header("Location:index.php");
         }
-        
     }
 
 ?>
