@@ -16,22 +16,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script src="js/validate.js"></script>
 <script>
-
-function validate()
-{
-  if($('#password').val() != $('#cpassword').val())
-  {
-    window.alert("Password and confirm password is differet.");
-    $('#cpassword').focus();
-    return false;
-  }
-  else{
-    window.alert("Registered sucsessfully!!\n Please login on next page.");
-    return true;
-  }
-}
-
 </script>
 
 
@@ -45,6 +31,7 @@ function validate()
 </head>
 <body>
 
+
 <div class="header">
     <h1 class="header__heading">Note</h1>
     <hr class="divider">
@@ -55,33 +42,52 @@ function validate()
           <div class="form-group row">
             <label for="inputName" class="col-sm-2 col-form-label">Name</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="nm" placeholder="Name" name="nm" required>
+              <input type="text" data-field="name" class="form-control" id="nm" placeholder="Name" name="nm">
             </div>
+            <h5 id="namecheck" style="color: red;" > 
+                    **Username is missing 
+              </h5>
           </div>
           <div class="form-group row">
             <label for="inputPhone" class="col-sm-2 col-form-label">Phone No.</label>
             <div class="col-sm-8">
-              <input type="tel" class="form-control" id="phone_no" placeholder="Phone No." name="phone_no" pattern="[0-9]{10}" required/>
+              <input type="tel" data-field="phone_no" class="form-control" id="phone_no" placeholder="Phone No." name="phone_no" pattern="[0-9]{10}"/>
             </div>
+            <h5 id="phonecheck" style="color: red;" > 
+                    **Please enter valid phone number.
+              </h5>
           </div>
           <div class="form-group row">
             <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-8">
-              <input type="email" class="form-control" id="eid" placeholder="example@gmail.com" name="eid" required>
+              <input type="email" data-field="eid" class="form-control" id="eid" placeholder="example@gmail.com" name="eid">
             </div>
+            <!-- <small style="color:red" id="emailvalid" class="form-text 
+                invalid-feedback"> 
+                    Your email must be a valid email 
+            </small> -->
+            <h5 id="emailcheck" style="color: red;" > 
+                    **Please enter valid email.
+            </h5>
           </div>
           
           <div class="form-group row">
             <label for="inputPassword" class="col-sm-2 col-form-label">New Password</label>
             <div class="col-sm-8">
-              <input type="password" class="form-control" id="password" placeholder="New Password" name="password" required>
+              <input type="password" data-field="password" class="form-control" id="password" placeholder="New Password" name="password">
             </div>
+            <h5 id="passcheck" style="color: red;"> 
+                **Please Fill the password 
+            </h5>
           </div>
           <div class="form-group row">
             <label for="inputConfirmPassword" class="col-sm-2 col-form-label">Confirm Password</label>
             <div class="col-sm-8">
-              <input type="password" class="form-control" id="cpassword" placeholder="Confirm Password" name="cpassword" required>
+              <input type="password" data-field="cpassword" class="form-control" id="cpassword" placeholder="Confirm Password" name="cpassword">
             </div>
+            <h5 id="conpasscheck" style="color: red;"> 
+                  **Password didn't match 
+              </h5>
           </div>
           <div class="form-group row">
             <div class="col-sm-10">
@@ -91,6 +97,14 @@ function validate()
             </div>
           </div>
         </form>
+
+        <!-- <div class="jumbotron invisible" id="jumbotron">
+          <div class="container">
+              <h1 class="display-5">Registration sucessfull.</h3>
+              <p class="lead">You have registered and the activation mail is sent to your email. Click the activation link to activate you account.</p>
+          </div>
+        </div> -->
+
     </div>
 
 </body>

@@ -48,7 +48,7 @@ $(document).ready(function () {
         lightMode();
     }
 
-    loadNotes();
+    // loadNotes();
     onRefresh();
 
     /** insert note after user enter note and user click on outside of it (loses focus from it).*/
@@ -195,7 +195,6 @@ function onRefresh(){
     // }
 }
 
-
 /**
  * Insert note to  page.
  */
@@ -322,7 +321,6 @@ function shareNote()
 
     
 }
-
 
 /**     Undo deleted note */
 function undoNote(){
@@ -456,11 +454,11 @@ function uploadFile(){
     }else{
       alert('Input something!');
     }
-  }
+}
 
 function logout(){
     var r = confirm("You want to logout?");
     if(r){
       window.location.href="logout.php";
     }
-  }
+}

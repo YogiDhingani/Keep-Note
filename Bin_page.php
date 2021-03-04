@@ -15,7 +15,16 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-  
+<script src="login_logout.js"></script>
+
+<?php
+session_start();
+include("getConn.php");
+if(!isset($_SESSION['user_id'])){
+  echo '<script type="text/javascript">performLogout();</script>';
+}
+?>
+
 </head>
 
 <body>

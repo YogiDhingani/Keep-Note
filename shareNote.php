@@ -19,7 +19,6 @@ if ($result->num_rows > 0 and $result2->num_rows > 0) {
     $note_id = $row2['note_id'];
     $sql3 = "INSERT INTO user_note(user_id,note_id) VALUES ('$user_id', '$note_id')";
     if ($conn->query($sql3) === TRUE) {
-        echo "true";
         header("Location:index.php");
     }
 }
